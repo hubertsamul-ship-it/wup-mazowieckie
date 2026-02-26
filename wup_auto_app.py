@@ -34,6 +34,281 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Custom CSS – SaaS Dashboard ───────────────────────────────────────────────
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ─── Background ─── */
+.main .block-container {
+    background: #f4f7f6 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+.main { background: #f4f7f6 !important; }
+
+/* ─── Sidebar ─── */
+[data-testid="stSidebar"] {
+    background: #0f172a !important;
+    border-right: 1px solid #1e293b !important;
+    min-width: 240px !important;
+}
+[data-testid="stSidebar"] > div { padding: 0 !important; }
+[data-testid="stSidebar"] * { color: #94a3b8 !important; }
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+}
+[data-testid="stSidebar"] .stButton button {
+    background: transparent !important;
+    border: 1px solid #1e3a5f !important;
+    color: #93c5fd !important;
+    border-radius: 8px !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+    transition: all 0.15s ease !important;
+    margin: 2px 0 !important;
+}
+[data-testid="stSidebar"] .stButton button:hover {
+    background: #1e3a5f !important;
+    color: #bfdbfe !important;
+    border-color: #2563eb !important;
+}
+[data-testid="stSidebar"] .stTextInput input {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 6px !important;
+    color: #e2e8f0 !important;
+    font-size: 0.78rem !important;
+}
+[data-testid="stSidebar"] label {
+    color: #64748b !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSidebar"] hr {
+    border-color: #1e293b !important;
+    margin: 8px 0 !important;
+}
+[data-testid="stSidebar"] .stSuccess {
+    background: rgba(16,185,129,0.1) !important;
+    border: 1px solid rgba(16,185,129,0.2) !important;
+    border-radius: 6px !important;
+    font-size: 0.78rem !important;
+}
+[data-testid="stSidebar"] small,
+[data-testid="stSidebar"] .stCaption { color: #475569 !important; font-size: 0.72rem !important; }
+
+/* ─── Main padding ─── */
+.wup-main { padding: 24px 28px; }
+
+/* ─── Page header ─── */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.page-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+.page-subtitle {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 2px;
+}
+.date-badge {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    color: #475569;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* ─── KPI Cards ─── */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+.kpi-card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+.kpi-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+}
+.kpi-card.blue::before  { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.kpi-card.green::before { background: linear-gradient(90deg, #059669, #34d399); }
+.kpi-card.orange::before{ background: linear-gradient(90deg, #d97706, #fbbf24); }
+.kpi-card.purple::before{ background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.kpi-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+.kpi-location {
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.kpi-value {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #0f172a;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+.kpi-unit {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-left: 2px;
+    font-family: 'Inter', sans-serif;
+}
+.kpi-delta {
+    font-size: 0.72rem;
+    margin-top: 6px;
+    color: #94a3b8;
+}
+
+/* ─── Section cards ─── */
+.section-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 16px;
+}
+.section-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ─── Tabs ─── */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
+    background: white;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 1px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    border-radius: 7px !important;
+    font-weight: 500 !important;
+    font-size: 0.82rem !important;
+    color: #64748b !important;
+    padding: 7px 14px !important;
+    transition: all 0.15s !important;
+}
+[data-testid="stTabs"] [aria-selected="true"] {
+    background: #0f172a !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+[data-testid="stTabs"] [data-baseweb="tab-highlight"],
+[data-testid="stTabs"] [data-baseweb="tab-border"] { display: none !important; }
+
+/* ─── Metrics (native) ─── */
+[data-testid="stMetric"] {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 16px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid #f1f5f9;
+}
+[data-testid="stMetric"] label {
+    color: #94a3b8 !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+}
+[data-testid="stMetricValue"] {
+    color: #0f172a !important;
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* ─── DataFrame ─── */
+[data-testid="stDataFrame"] {
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* ─── Download button ─── */
+.stDownloadButton button {
+    background: white !important;
+    border: 1.5px solid #2563eb !important;
+    color: #2563eb !important;
+    border-radius: 7px !important;
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+}
+.stDownloadButton button:hover {
+    background: #2563eb !important;
+    color: white !important;
+}
+
+/* ─── Misc ─── */
+h2, h3 { color: #0f172a !important; font-weight: 700 !important; }
+hr { border-color: #e2e8f0 !important; margin: 16px 0 !important; }
+.stCaption, small { color: #94a3b8 !important; font-size: 0.75rem !important; }
+.stInfo { background: #eff6ff !important; border: 1px solid #bfdbfe !important; border-radius: 8px !important; }
+.stSuccess { background: #f0fdf4 !important; border: 1px solid #bbf7d0 !important; border-radius: 8px !important; }
+[data-baseweb="tag"] { background: #dbeafe !important; color: #1e40af !important; border-radius: 5px !important; font-size: 0.75rem !important; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+""", unsafe_allow_html=True)
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MIESIAC_PL = {
@@ -468,147 +743,300 @@ def wczytaj_bezrobocie(folder: str) -> pd.DataFrame:
 # ════════════════════════════════════════════════════════════════════════════
 # UI
 # ════════════════════════════════════════════════════════════════════════════
-st.title("📊 WUP Mazowieckie – Rynek Pracy")
 
-# ── Sidebar ───────────────────────────────────────────────────────────────────
+# ── Sidebar – nawigacja + wczytywanie danych ──────────────────────────────────
 with st.sidebar:
-    st.header("📁 Foldery z danymi")
+    # Logo / Tytuł
+    st.markdown("""
+    <div style="padding: 20px 16px 12px 16px; border-bottom: 1px solid #1e293b;">
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;color:#3b82f6;text-transform:uppercase;margin-bottom:4px;">WUP Warszawa</div>
+        <div style="font-size:1rem;font-weight:800;color:#f1f5f9;letter-spacing:-0.01em;line-height:1.2;">Rynek Pracy</div>
+        <div style="font-size:0.68rem;color:#475569;margin-top:3px;">Województwo Mazowieckie</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    folder_zwol = st.text_input(
-        "Folder zwolnień grupowych",
-        value=os.path.join(BASE_DIR, "dane", "zwolnienia"),
-    )
-    folder_bezr = st.text_input(
-        "Folder bezrobocia MRPiPS",
-        value=os.path.join(BASE_DIR, "dane", "bezrobocie"),
-    )
+    # Nawigacja
+    st.markdown("""
+    <div style="padding: 12px 16px 4px 16px;">
+        <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;color:#334155;text-transform:uppercase;margin-bottom:8px;">Menu</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    if st.button("🔄 Odśwież dane", use_container_width=True):
+    nav_opcje = {
+        "🏠  Pulpit":             "pulpit",
+        "👥  Bezrobotni":         "bezrobotni",
+        "📉  Stopa bezrobocia":   "stopa",
+        "🏭  Zwolnienia grupowe": "zwolnienia",
+        "📋  Dane surowe":        "dane_surowe",
+    }
+    if "nav" not in st.session_state:
+        st.session_state["nav"] = "pulpit"
+
+    for label, key in nav_opcje.items():
+        is_active = st.session_state["nav"] == key
+        btn_style = "background:#1e3a5f !important; color:#bfdbfe !important; border-color:#2563eb !important;" if is_active else ""
+        if st.button(label, key=f"nav_{key}", use_container_width=True):
+            st.session_state["nav"] = key
+            st.rerun()
+
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+    st.divider()
+
+    # Dane techniczne – zwinięte
+    with st.expander("⚙️ Ustawienia danych", expanded=False):
+        folder_zwol = st.text_input("Zwolnienia", value=os.path.join(BASE_DIR, "dane", "zwolnienia"))
+        folder_bezr = st.text_input("Bezrobocie MRPiPS", value=os.path.join(BASE_DIR, "dane", "bezrobocie"))
+        folder_stopa = st.text_input("Stopa bezrobocia", value=os.path.join(BASE_DIR, "dane", "stopa_bezrobocia"))
+
+    if st.button("🔄  Odśwież dane", use_container_width=True):
         st.cache_data.clear()
         st.rerun()
 
-    st.divider()
-
-    # Wczytaj dane
-    df_zwol = pd.DataFrame()
-    pliki_zwol = []
-    df_bezr = pd.DataFrame()
-
-    if os.path.exists(folder_zwol):
-        with st.spinner("Wczytuję zwolnienia…"):
-            df_zwol, pliki_zwol = wczytaj_zwolnienia(folder_zwol)
-        if pliki_zwol:
-            st.success(f"✅ Zwolnienia: {len(pliki_zwol)} plików")
-            for p in pliki_zwol:
-                st.caption(f"• {p['nazwa_pl']}  `{os.path.basename(p['sciezka'])}`")
-        else:
-            st.warning("⚠️ Brak plików w folderze zwolnień")
-    else:
-        st.info(f"📁 Utwórz folder:\n`{folder_zwol}`")
-
-    st.divider()
-
-    if os.path.exists(folder_bezr):
-        with st.spinner("Wczytuję bezrobocie…"):
-            df_bezr = wczytaj_bezrobocie(folder_bezr)
-        if not df_bezr.empty:
-            n_plikow = df_bezr[["Rok","Miesiąc_num"]].drop_duplicates().shape[0]
-            st.success(f"✅ Bezrobocie: {n_plikow} plików")
-            for okres in (df_bezr["Okres"].cat.categories
-                          if hasattr(df_bezr["Okres"], "cat")
-                          else df_bezr["Okres"].unique()):
-                st.caption(f"• {okres}")
-        else:
-            st.warning("⚠️ Brak plików w folderze bezrobocia")
-    else:
-        st.info(f"📁 Utwórz folder:\n`{folder_bezr}`")
-
-    st.divider()
-    folder_stopa = st.text_input(
-        "Folder stopy bezrobocia (GUS)",
-        value=os.path.join(BASE_DIR, "dane", "stopa_bezrobocia"),
-    )
-    geojson_sciezka    = os.path.join(BASE_DIR, "powiaty.geojson")
+    # Wczytaj dane (cicho)
+    folder_zwol  = os.path.join(BASE_DIR, "dane", "zwolnienia")
+    folder_bezr  = os.path.join(BASE_DIR, "dane", "bezrobocie")
+    folder_stopa = os.path.join(BASE_DIR, "dane", "stopa_bezrobocia")
+    geojson_sciezka     = os.path.join(BASE_DIR, "powiaty.geojson")
     geojson_woj_sciezka = os.path.join(BASE_DIR, "wojewodztwa.geojson")
 
-    df_stopa = pd.DataFrame()
-    geojson = {}
+    df_zwol = pd.DataFrame(); pliki_zwol = []
+    df_bezr = pd.DataFrame(); df_stopa = pd.DataFrame()
+    geojson = {}; geojson_woj = {}
 
+    if os.path.exists(folder_zwol):
+        df_zwol, pliki_zwol = wczytaj_zwolnienia(folder_zwol)
+    if os.path.exists(folder_bezr):
+        df_bezr = wczytaj_bezrobocie(folder_bezr)
     if os.path.exists(folder_stopa):
-        with st.spinner("Wczytuję stopę bezrobocia…"):
-            df_stopa = wczytaj_stopa_bezrobocia(folder_stopa)
-        if not df_stopa.empty:
-            n_st = df_stopa[["Rok","Miesiąc_num"]].drop_duplicates().shape[0]
-            st.success(f"✅ Stopa bezrobocia: {n_st} plików")
-        else:
-            st.warning("⚠️ Brak plików w folderze stopy bezrobocia")
-    else:
-        st.info(f"📁 Utwórz folder:\n`{folder_stopa}`")
-
+        df_stopa = wczytaj_stopa_bezrobocia(folder_stopa)
     if os.path.exists(geojson_sciezka):
         geojson = wczytaj_geojson(geojson_sciezka)
-        st.caption("🗺️ powiaty.geojson ✅")
-    else:
-        st.caption(f"⚠️ Brak pliku `powiaty.geojson` w `{BASE_DIR}`")
-
-    geojson_woj = {}
     if os.path.exists(geojson_woj_sciezka):
         geojson_woj = wczytaj_geojson(geojson_woj_sciezka)
-        st.caption("🗺️ wojewodztwa.geojson ✅")
-    else:
-        st.caption(f"⚠️ Brak pliku `wojewodztwa.geojson` w `{BASE_DIR}`")
 
-    # Filtry zwolnień
-    if not df_zwol.empty:
-        st.divider()
-        st.header("🔧 Filtry")
-        dostepne = list(df_zwol["Okres"].cat.categories)
-        wybrane_okresy  = st.multiselect("Miesiące (zwolnienia)", dostepne, default=dostepne)
-        wybrane_powiaty = st.multiselect("Powiaty",
-                                          sorted(df_zwol["Powiat"].unique()),
-                                          default=sorted(df_zwol["Powiat"].unique()))
-        szukaj = st.text_input("🔍 Szukaj firmy")
+    # Status danych
+    st.markdown("<div style='height:4px'></div>", unsafe_allow_html=True)
+    status_items = []
+    if pliki_zwol: status_items.append(f"✅ Zwolnienia: {len(pliki_zwol)} mies.")
+    if not df_bezr.empty: status_items.append(f"✅ Bezrobocie: {df_bezr[['Rok','Miesiąc_num']].drop_duplicates().shape[0]} mies.")
+    if not df_stopa.empty: status_items.append(f"✅ Stopa bezr.: {df_stopa[['Rok','Miesiąc_num']].drop_duplicates().shape[0]} mies.")
+    for s in status_items:
+        st.caption(s)
+
+current_page = st.session_state.get("nav", "pulpit")
 
 
-# ── Brak danych ───────────────────────────────────────────────────────────────
-if df_zwol.empty and df_bezr.empty:
-    st.warning("⚠️ Nie znaleziono danych.")
-    st.markdown("""
-    **Oczekiwana struktura folderów:**
-    ```
-    WUP_Aplikacja/
-    ├── wup_auto_app.py
-    └── dane/
-        ├── zwolnienia/
-        │   ├── 2025-01.xlsx
-        │   ├── 2025-02.xlsx
-        │   └── ...
-        └── bezrobocie/
-            ├── 2025-03.xlsx
-            ├── 2026-01.xlsx
-            └── ...
-    ```
-    Po dodaniu plików kliknij **🔄 Odśwież dane**.
-    """)
-    st.stop()
+# Filtracja danych zwolnień
+wybrane_okresy = list(df_zwol["Okres"].cat.categories) if not df_zwol.empty and hasattr(df_zwol["Okres"], "cat") else []
+wybrane_powiaty = sorted(df_zwol["Powiat"].unique()) if not df_zwol.empty else []
+szukaj = ""
 
+# Filtracja
+dff = df_zwol.copy() if not df_zwol.empty else pd.DataFrame()
+if not dff.empty:
+    if wybrane_okresy:
+        dff = dff[dff["Okres"].isin(wybrane_okresy)]
+    if wybrane_powiaty:
+        dff = dff[dff["Powiat"].isin(wybrane_powiaty)]
 
 # ── Filtrowanie zwolnień ──────────────────────────────────────────────────────
-if not df_zwol.empty:
-    mask = (df_zwol["Okres"].isin(wybrane_okresy) &
-            df_zwol["Powiat"].isin(wybrane_powiaty))
-    if szukaj:
-        mask &= df_zwol["Nazwa"].str.contains(szukaj, case=False, na=False)
-    dff = df_zwol[mask].copy()
-else:
-    dff = pd.DataFrame()
+dff = df_zwol.copy() if not df_zwol.empty else pd.DataFrame()
+
+# ── Nawigacja stron ────────────────────────────────────────────────────────────
+def render_page_header(title, subtitle, last_date=None):
+    date_html = f'<div class="date-badge">📅 Ostatnie dane: <b>{last_date}</b></div>' if last_date else ""
+    st.markdown(f"""
+    <div style="padding: 20px 28px 0 28px;">
+        <div class="page-header">
+            <div>
+                <div class="page-title">{title}</div>
+                <div class="page-subtitle">{subtitle}</div>
+            </div>
+            {date_html}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_kpi(label, location, value, unit, color_class):
+    return f"""
+    <div class="kpi-card {color_class}">
+        <div class="kpi-label">{label}</div>
+        <div class="kpi-location">{location}</div>
+        <div class="kpi-value">{value}<span class="kpi-unit">{unit}</span></div>
+    </div>"""
+
+# ═══════════════════════════════════════════════════════════════════
+# PULPIT
+# ═══════════════════════════════════════════════════════════════════
+if current_page == "pulpit":
+    # Dane do KPI
+    ostatni_bezr = None
+    ostatnia_stopa_mazow = None
+    ostatnia_stopa_wawa = None
+    ostatni_bezr_wawa = None
+    last_date = None
+
+    if not df_stopa.empty:
+        powiaty_s = df_stopa[df_stopa["Typ"] == "powiat"]
+        woj_s = df_stopa[df_stopa["Typ"] == "województwo"]
+        if not woj_s.empty:
+            ost_woj = woj_s.sort_values("Sort_key").iloc[-1]
+            ostatnia_stopa_mazow = ost_woj["Stopa"]
+            ostatni_bezr = ost_woj["Bezrobotni_tys"]
+            last_date = str(ost_woj["Okres"])
+        if not powiaty_s.empty:
+            wawa = powiaty_s[powiaty_s["Nazwa"].str.lower().str.contains("warszawa")]
+            if not wawa.empty:
+                ost_wawa = wawa.sort_values("Sort_key").iloc[-1]
+                ostatnia_stopa_wawa = ost_wawa["Stopa"]
+                ostatni_bezr_wawa = ost_wawa["Bezrobotni_tys"]
+
+    render_page_header("Pulpit", "Przegląd kluczowych wskaźników rynku pracy", last_date)
+
+    # KPI Cards
+    kpi_html = '<div style="padding: 16px 28px;"><div class="kpi-grid">'
+    kpi_html += render_kpi("Bezrobotni", "Mazowieckie",
+                            f"{ostatni_bezr:.1f}" if ostatni_bezr else "—", " tys.", "blue")
+    kpi_html += render_kpi("Stopa bezrobocia", "Mazowieckie",
+                            f"{ostatnia_stopa_mazow:.1f}" if ostatnia_stopa_mazow else "—", "%", "green")
+    kpi_html += render_kpi("Bezrobotni", "m. Warszawa",
+                            f"{ostatni_bezr_wawa:.1f}" if ostatni_bezr_wawa else "—", " tys.", "orange")
+    kpi_html += render_kpi("Stopa bezrobocia", "m. Warszawa",
+                            f"{ostatnia_stopa_wawa:.1f}" if ostatnia_stopa_wawa else "—", "%", "purple")
+    kpi_html += '</div></div>'
+    st.markdown(kpi_html, unsafe_allow_html=True)
+
+    # Mapy
+    st.markdown('<div style="padding: 0 28px;">', unsafe_allow_html=True)
+    col_map1, col_map2 = st.columns(2)
+
+    def rysuj_mape_pulpit(df_mapa, geojson_data, tytul, zoom, center, height=380):
+        if not geojson_data or df_mapa.empty:
+            st.info("Brak danych do mapy")
+            return
+        geo_map = {f["properties"]["nazwa"]: f["properties"]["id"] for f in geojson_data["features"]}
+        df_mapa = df_mapa.copy()
+        df_mapa["geo_id"] = df_mapa["Geo_nazwa"].map(geo_map)
+        df_plot = df_mapa.dropna(subset=["geo_id"])
+        if df_plot.empty:
+            st.info("Brak dopasowanych danych")
+            return
+        fig = px.choropleth_mapbox(
+            df_plot, geojson=geojson_data, locations="geo_id",
+            featureidkey="properties.id", color="Stopa",
+            hover_name="Nazwa",
+            hover_data={"Stopa":":.1f","Bezrobotni_tys":":.1f","geo_id":False},
+            color_continuous_scale="Blues",
+            range_color=[0, df_plot["Stopa"].max()],
+            mapbox_style="carto-positron",
+            zoom=zoom, center=center, opacity=0.85,
+            labels={"Stopa":"Stopa %","Bezrobotni_tys":"Bezrobotni (tys.)"},
+            height=height,
+        )
+        fig.update_layout(
+            margin={"r":0,"t":30,"l":0,"b":0},
+            title=dict(text=tytul, font=dict(size=13, color="#0f172a"), x=0),
+            coloraxis_colorbar=dict(title="Stopa %", thickness=10, len=0.7),
+            paper_bgcolor="white", plot_bgcolor="white",
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+    if not df_stopa.empty:
+        ostatni_key = df_stopa["Sort_key"].max()
+        okres_str = str(df_stopa[df_stopa["Sort_key"]==ostatni_key]["Okres"].iloc[0])
+
+        with col_map1:
+            st.markdown('<div class="section-card"><div class="section-title">🇵🇱 Stopa bezrobocia – Polska</div>', unsafe_allow_html=True)
+            woj_map = df_stopa[(df_stopa["Typ"]=="województwo") & (df_stopa["Sort_key"]==ostatni_key)].copy()
+            # Poprawka: Mazowieckie jako jedno województwo
+            woj_map = woj_map[woj_map["Geo_nazwa"].notna()]
+            rysuj_mape_pulpit(woj_map, geojson_woj, f"Polska · {okres_str}", 5.0, {"lat":52.1,"lon":19.5})
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        with col_map2:
+            st.markdown('<div class="section-card"><div class="section-title">📍 Stopa bezrobocia – powiaty mazowieckie</div>', unsafe_allow_html=True)
+            pow_map = df_stopa[(df_stopa["Typ"]=="powiat") & (df_stopa["Sort_key"]==ostatni_key)].copy()
+            rysuj_mape_pulpit(pow_map, geojson, f"Mazowieckie · {okres_str}", 6.5, {"lat":52.1,"lon":20.8})
+            st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        with col_map1:
+            st.info("Brak danych stopy bezrobocia")
+        with col_map2:
+            st.info("Dodaj pliki do folderu stopa_bezrobocia/")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Wykres trendu z przełącznikiem
+    st.markdown('<div style="padding: 0 28px 28px 28px;">', unsafe_allow_html=True)
+    st.markdown('<div class="section-card">', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">📈 Trend w czasie</div>', unsafe_allow_html=True)
+
+    if not df_stopa.empty:
+        col_toggle, _ = st.columns([2,5])
+        with col_toggle:
+            miara = st.radio("Wskaźnik", ["Stopa bezrobocia (%)", "Liczba bezrobotnych (tys.)"],
+                              horizontal=False, key="pulpit_miara")
+        col_field = "Stopa" if "Stopa" in miara else "Bezrobotni_tys"
+        col_label = "Stopa %" if "Stopa" in miara else "Bezrobotni (tys.)"
+
+        woj_trend = df_stopa[df_stopa["Typ"]=="województwo"].sort_values("Sort_key")
+        if not woj_trend.empty:
+            fig_trend = go.Figure()
+            fig_trend.add_trace(go.Scatter(
+                x=woj_trend["Okres"], y=woj_trend[col_field],
+                mode="lines+markers",
+                line=dict(color="#2563eb", width=3),
+                marker=dict(size=8, color="#2563eb",
+                            line=dict(color="white", width=2)),
+                name="Mazowieckie",
+                fill="tozeroy",
+                fillcolor="rgba(37,99,235,0.06)",
+            ))
+            fig_trend.update_layout(
+                height=280, hovermode="x unified",
+                xaxis_tickangle=-30,
+                yaxis_title=col_label,
+                paper_bgcolor="white", plot_bgcolor="white",
+                margin=dict(l=0,r=0,t=10,b=40),
+                xaxis=dict(showgrid=False, tickfont=dict(size=11, color="#94a3b8")),
+                yaxis=dict(gridcolor="#f1f5f9", tickfont=dict(size=11, color="#94a3b8")),
+                showlegend=False,
+            )
+            st.plotly_chart(fig_trend, use_container_width=True)
+    else:
+        st.info("Brak danych do wykresu trendu")
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
 
-# ── Zakładki ──────────────────────────────────────────────────────────────────
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📈 Przegląd", "🏭 Firmy i PKD", "🗺️ Powiaty", "👥 Bezrobocie",
-    "📊 Stopa bezrobocia", "📋 Dane surowe",
-])
+# ═══════════════════════════════════════════════════════════════════
+# POZOSTAŁE STRONY – stare zakładki
+# ═══════════════════════════════════════════════════════════════════
+elif current_page in ["bezrobotni","stopa","zwolnienia","dane_surowe"]:
+    st.markdown('<div style="padding: 20px 28px;">', unsafe_allow_html=True)
+
+    if current_page == "zwolnienia":
+        render_page_header("Zwolnienia grupowe", "Analiza zgłoszeń zwolnień grupowych")
+    elif current_page == "bezrobotni":
+        render_page_header("Bezrobotni", "Dane MRPiPS – bezrobocie rejestrowane")
+    elif current_page == "stopa":
+        render_page_header("Stopa bezrobocia", "Dane GUS – stopa bezrobocia wg jednostek terytorialnych")
+    elif current_page == "dane_surowe":
+        render_page_header("Dane surowe", "Eksport i podgląd danych")
+
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+        "📈 Przegląd zwolnień", "🏭 Firmy i PKD", "🗺️ Powiaty zwolnień", "👥 Bezrobocie",
+        "📊 Stopa bezrobocia", "📋 Dane surowe",
+    ])
+    st.markdown('</div>', unsafe_allow_html=True)
+    # Wyświetl odpowiednią zakładkę automatycznie
+    if current_page == "zwolnienia":
+        pass  # tab1/tab2/tab3 obsługują zwolnienia
+    elif current_page == "bezrobotni":
+        pass  # tab4
+    elif current_page == "stopa":
+        pass  # tab5
+
 
 
 # ════════════ TAB 1 – PRZEGLĄD ════════════
